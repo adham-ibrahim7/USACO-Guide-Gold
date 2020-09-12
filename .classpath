@@ -6,5 +6,8 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="src" path="divisibility"/>
+	<classpathentry kind="src" path="modular arithmetic"/>
+	<classpathentry kind="src" path="dp intro"/>
+	<classpathentry kind="src" path="knapsack dp"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
