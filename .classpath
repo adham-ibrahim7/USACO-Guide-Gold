@@ -8,6 +8,9 @@
 	<classpathentry kind="src" path="divisibility"/>
 	<classpathentry kind="src" path="modular arithmetic"/>
 	<classpathentry kind="src" path="dp intro"/>
-	<classpathentry kind="src" path="knapsack dp"/>
+	<classpathentry kind="src" path="dp knapsack"/>
+	<classpathentry kind="src" path="dp grid paths"/>
+	<classpathentry kind="src" path="dp lis"/>
+	<classpathentry kind="src" path="dp misc"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
