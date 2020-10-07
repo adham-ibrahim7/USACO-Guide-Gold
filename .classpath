@@ -12,5 +12,7 @@
 	<classpathentry kind="src" path="dp grid paths"/>
 	<classpathentry kind="src" path="dp lis"/>
 	<classpathentry kind="src" path="dp misc"/>
+	<classpathentry kind="src" path="bfs"/>
+	<classpathentry kind="src" path="dp num theory"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

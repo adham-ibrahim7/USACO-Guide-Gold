@@ -1,32 +1,21 @@
 import java.util.*;
 import java.io.*;
 
-public class CuttingRectangles {
+public class Frog1 {
 	public static void main(String[] args) throws IOException {
 		setIO();
 
-		st = nl();
-		int A = ni(st), B = ni(st);
-		int[][] dp = new int[A+1][B+1];
-		
-		for (int i = 0; i <= A; i++) Arrays.fill(dp[i], 1000000000);
-		
-		for (int a = 1; a <= A; a++) {
-			for (int b = 1; b <= B; b++) {
-				if (a == b) dp[a][b] = 0;
-				else {
-					for (int i = 1; i <= a / 2; i++) {
-						dp[a][b] = Math.min(dp[a][b], 1 + dp[i][b] + dp[a-i][b]);
-					}
-					
-					for (int i = 1; i <= b / 2; i++) {
-						dp[a][b] = Math.min(dp[a][b], 1 + dp[a][i] + dp[a][b-i]);
-					}
-				}
-			}
+		int N = ni();
+		int[] A = nia(N);
+		int[] dp = new int[N];
+		Arrays.fill(dp, 1000000000);
+		dp[0] = 0;
+		for (int i = 0; i < N-1; i++) {
+			dp[i+1] = Math.min(dp[i+1], dp[i] + Math.abs(A[i+1] - A[i]));
+			if (i < N-2)
+				dp[i+2] = Math.min(dp[i+2], dp[i] + Math.abs(A[i+2] - A[i]));
 		}
-		
-		out.println(dp[A][B]);
+		out.println(dp[N-1]);
 		
 		f.close();
 		out.close();

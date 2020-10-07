@@ -1,32 +1,49 @@
 import java.util.*;
 import java.io.*;
 
-public class CuttingRectangles {
+public class RoundSubset {
 	public static void main(String[] args) throws IOException {
 		setIO();
 
 		st = nl();
-		int A = ni(st), B = ni(st);
-		int[][] dp = new int[A+1][B+1];
-		
-		for (int i = 0; i <= A; i++) Arrays.fill(dp[i], 1000000000);
-		
-		for (int a = 1; a <= A; a++) {
-			for (int b = 1; b <= B; b++) {
-				if (a == b) dp[a][b] = 0;
-				else {
-					for (int i = 1; i <= a / 2; i++) {
-						dp[a][b] = Math.min(dp[a][b], 1 + dp[i][b] + dp[a-i][b]);
-					}
-					
-					for (int i = 1; i <= b / 2; i++) {
-						dp[a][b] = Math.min(dp[a][b], 1 + dp[a][i] + dp[a][b-i]);
-					}
-				}
+		int N = ni(st), K = ni(st);
+		int[][] A = new int[N+1][2];
+		st = nl();
+		for (int i = 1; i <= N; i++) {
+			long M = nlg(st);
+			
+			while (M % 2 == 0) {
+				M /= 2;
+				A[i][0]++;
+			}
+			
+			while (M % 5 == 0) {
+				M /= 5;
+				A[i][1]++;
 			}
 		}
 		
-		out.println(dp[A][B]);
+		int[][][] dp = new int[N+1][K+1][2];
+		//0 - 2, 1 - 5
+		
+		for (int k = 1; k <= K; k++) {
+			for (int i = 1; i <= N; i++) {
+				for (int j = 0; j < i; j++) {
+					int exclude = Math.min(dp[i][k][0], dp[i][k][1]);
+					int include = Math.min(dp[j][k-1][0] + A[i][0], dp[j][k-1][1] + A[i][1]);
+					
+					if (exclude < include) {
+						dp[i][k][0] = dp[i-1][k-1][0] + A[i][0];
+						dp[i][k][1] = dp[i-1][k-1][1] + A[i][1];
+					}
+				}
+				
+				out.print(dp[i][k][0] + "/" + dp[i][k][1] + " ");
+			}
+			out.println();
+		}
+		
+		out.println(Math.min(dp[N][K][0], dp[N][K][1]));
 		
 		f.close();
 		out.close();

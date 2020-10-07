@@ -1,32 +1,27 @@
 import java.util.*;
 import java.io.*;
 
-public class CuttingRectangles {
+public class RemovalGame {
 	public static void main(String[] args) throws IOException {
 		setIO();
 
-		st = nl();
-		int A = ni(st), B = ni(st);
-		int[][] dp = new int[A+1][B+1];
+		int N = ni();
+		int[] A = nia(N);
 		
-		for (int i = 0; i <= A; i++) Arrays.fill(dp[i], 1000000000);
+		long[][] dp = new long[N][N];
 		
-		for (int a = 1; a <= A; a++) {
-			for (int b = 1; b <= B; b++) {
-				if (a == b) dp[a][b] = 0;
+		long total = 0;
+		for (int L = N-1; L >= 0; L--) {
+			for (int R = L; R < N; R++) {
+				if (L == R) dp[L][R] = A[L];
 				else {
-					for (int i = 1; i <= a / 2; i++) {
-						dp[a][b] = Math.min(dp[a][b], 1 + dp[i][b] + dp[a-i][b]);
-					}
-					
-					for (int i = 1; i <= b / 2; i++) {
-						dp[a][b] = Math.min(dp[a][b], 1 + dp[a][i] + dp[a][b-i]);
-					}
+					dp[L][R] = Math.max(A[L] - dp[L+1][R], A[R] - dp[L][R-1]);
 				}
 			}
+			total += A[L];
 		}
 		
-		out.println(dp[A][B]);
+		out.println((total + dp[0][N-1]) / 2);
 		
 		f.close();
 		out.close();

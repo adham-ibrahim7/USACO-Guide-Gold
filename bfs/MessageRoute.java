@@ -1,32 +1,47 @@
 import java.util.*;
 import java.io.*;
 
-public class CuttingRectangles {
+public class MessageRoute {
 	public static void main(String[] args) throws IOException {
 		setIO();
-
+		
 		st = nl();
-		int A = ni(st), B = ni(st);
-		int[][] dp = new int[A+1][B+1];
+		int N = ni(st), M = ni(st);
+		LinkedList<Integer>[] adj = new LinkedList[N+1];
+		for (int i = 1; i <= N; i++) adj[i] = new LinkedList<>();
+		while (M-- > 0) {
+			st = nl();
+			int u = ni(st), v = ni(st);
+			adj[u].add(v);
+			adj[v].add(u);
+		}
 		
-		for (int i = 0; i <= A; i++) Arrays.fill(dp[i], 1000000000);
-		
-		for (int a = 1; a <= A; a++) {
-			for (int b = 1; b <= B; b++) {
-				if (a == b) dp[a][b] = 0;
-				else {
-					for (int i = 1; i <= a / 2; i++) {
-						dp[a][b] = Math.min(dp[a][b], 1 + dp[i][b] + dp[a-i][b]);
-					}
-					
-					for (int i = 1; i <= b / 2; i++) {
-						dp[a][b] = Math.min(dp[a][b], 1 + dp[a][i] + dp[a][b-i]);
-					}
-				}
+		Queue<Integer> q = new LinkedList<>();
+		q.add(1);
+		int[] prev = new int[N+1];
+		Arrays.fill(prev, -1);
+		prev[1] = 0;
+		while (!q.isEmpty()) {
+			int u = q.poll();
+			for (int v : adj[u]) {
+				if (prev[v] > -1) continue;
+				prev[v] = u;
+				q.add(v);
 			}
 		}
 		
-		out.println(dp[A][B]);
+		Stack<Integer> ans = new Stack<>();
+		int u = N;
+		while (prev[u] != -1) {
+			ans.push(u);
+			u = prev[u];
+		}
+		
+		if (ans.isEmpty() || ans.peek() != 1) out.println("IMPOSSIBLE");
+		else {
+			out.println(ans.size());
+			while (!ans.isEmpty()) out.print(ans.pop() + " ");
+		}
 		
 		f.close();
 		out.close();
