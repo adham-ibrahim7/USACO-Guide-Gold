@@ -13,6 +13,8 @@
       <sourceFolder url="file://$MODULE_DIR$/dp num theory" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/modular arithmetic" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/dsu" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/lib" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
